@@ -153,10 +153,17 @@ The retrieval results were relevant because Results 2 and 3 directly explain the
      Do not just say "I told it to use the documents" — show the actual instruction or explain
      the mechanism. -->
 
-**System prompt grounding instruction:**
+## Grounded Generation
 
-**How source attribution is surfaced in the response:**
+The system retrieves the most relevant housing chunks from ChromaDB and provides those chunks to the Groq language model as context. The prompt instructs the model to answer only using the retrieved information and not to make up information. If the retrieved context does not contain enough information to answer the question, the model is instructed to respond that it does not have enough information in the provided housing documents.
 
+The generated response also includes the source files connected to the retrieved chunks so users can see where the information came from.
+
+**System prompt grounding instruction:**  
+The system prompt tells the model to answer the user's question using only the information provided in the retrieved context. It also instructs the model not to make up information. If the context does not contain enough information to answer the question, the model is instructed to say, "I don't have enough information in the provided housing documents to answer that question."
+
+**How source attribution is surfaced in the response:**  
+After the model generates an answer, the system displays a Sources section containing the names of the documents used in the retrieved context. Duplicate source names are removed so that each source is only listed once.
 ---
 
 ## Example Responses
@@ -165,53 +172,81 @@ The retrieval results were relevant because Results 2 and 3 directly explain the
      and 1 out-of-scope query showing your system's refusal.
      All entries must be text — not screenshots. -->
 
+
 **Grounded response 1**
 
-Query:
+Query: What should students know about applying for Howard University housing?
 
-Response:
+Response: Students should complete all required steps for the housing application process, including paying the enrollment fee, paying the housing application fee, and submitting the housing application by the listed deadlines. If the required steps are not completed on time, access to on-campus housing could be jeopardized.
 
 Source attribution:
+- Apply for Housing.txt
+- Housing.txt
+- Find Off-Campus Housing.txt
 
 ---
 
 **Grounded response 2**
 
-Query:
+Query: What should students consider when looking for off-campus housing?
 
-Response:
+Response: Students should think about several key factors when searching for off-campus housing:
+
+1. **Whether to live alone or with roommates** – Decide if you want to "ride solo" or share an apartment.
+2. **Living-style compatibility** – If you choose to live with others, make sure all parties are on the same page about preferences such as sleep schedules (early birds vs. night owls) and how often you like to entertain guests.
+3. **Being a respectful member of the surrounding community** – Consider how your habits will affect neighbors and the broader community.
+4. **Your independence and the support available** – Off-campus living offers independence while still allowing you to receive support from the university, such as through the Office of Off-Campus Housing.
+
+If you need further guidance, you can contact the Office of Off-Campus Housing at offcampushousing@howard.edu.
 
 Source attribution:
+- 6 Tips for Finding Off-Campus Housing.txt
+- Housing.txt
+- Find Off-Campus Housing.txt
 
 ---
 
-**Out-of-scope query**
+**Out-of-scope response**
 
-Query:
+Query: What is the best restaurant near Howard University?
 
-System response (refusal):
+Response: I don't have enough information in the provided housing documents to answer that question.
 
+Source attribution:
+- Help Picking Dorm.txt
+- Resident hall recommendations .txt
+- Transfer student looking for housing.txt
 ---
 
 ## Query Interface
 
 <!-- Describe your query interface: what are the input fields, what does the output look like?
      Then provide a complete sample interaction transcript showing a real exchange. -->
+**Input fields:**  
+The interface contains a text box labeled "Ask a housing question" where users can enter questions about Howard University housing or off-campus housing. Users submit their question by clicking the "Ask" button.
 
-**Input fields:**
-
-**Output format:**
+**Output format:**  
+The interface displays the generated response in an "Answer" field and lists the retrieved document names in a separate "Sources" field. This allows the user to see both the answer and the documents that were used as context to generate it.
 
 ---
 
 **Sample Interaction Transcript**
 
-<!-- Show a complete query → response exchange as it actually appears in your interface.
-     Must be text — not a screenshot. -->
+**User:** What should students consider when looking for off-campus housing?
 
-> **User:** 
+**System:** Students should think about several key factors when searching for off-campus housing:
 
-> **System:** 
+1. **Whether to live alone or with roommates** – Decide if you want to "ride solo" or share an apartment.
+2. **Living-style compatibility** – If you choose to live with others, make sure all parties are on the same page about preferences such as sleep schedules (early birds vs. night owls) and how often you like to entertain guests.
+3. **Being a respectful member of the surrounding community** – Consider how your habits will affect neighbors and the broader community.
+4. **Your independence and the support available** – Off-campus living offers independence while still allowing you to receive support from the university, such as through the Office of Off-Campus Housing.
+
+If you need further guidance, you can contact the Office of Off-Campus Housing at offcampushousing@howard.edu.
+
+ **Sources:**
+6 Tips for Finding Off-Campus Housing.txt
+Housing.txt
+Find Off-Campus Housing.txt
 
 ---
 
