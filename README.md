@@ -14,6 +14,8 @@
      Example: "Student reviews of CS professors at [university] — useful because official
      course descriptions don't reflect teaching style, exam difficulty, or workload." -->
 
+     My domain is Howard University housing advice for students. I chose this domain because finding the right housing can be difficult for students, especially when deciding between residence halls, off-campus housing, and other living arrangements. Official university resources provide important information about housing policies and the application process, but they may not include the personal experiences and advice that students are looking for. Information about dorm experiences, off-campus options, housing recommendations, and common concerns can be spread across different websites and student discussions. This guide will bring that information together so students can ask housing-related questions and receive relevant answers based on the collected sources.
+
 ---
 
 ## Document Sources
@@ -22,18 +24,19 @@
      Be specific: include URLs, subreddit names, forum thread titles, or file names.
      Aim for variety — sources that together cover different subtopics or perspectives. -->
 
-| # | Source | Type | URL or file path |
-|---|--------|------|-----------------|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
-| 4 | | | |
-| 5 | | | |
-| 6 | | | |
-| 7 | | | |
-| 8 | | | |
-| 9 | | | |
-| 10 | | | |
+| # | Source | Description | URL or location |
+|---|--------|-------------|-----------------|
+| 1 | Housing with Parents | Discusses living with parents while attending Howard, including commuting, housing exemptions, saving money, and the social impact of living off campus. | https://www.reddit.com/r/HowardUniversity/comments/1k9944k/housing_with_parents/ |
+| 2 | Transfer Student Looking for Housing | Provides housing advice for transfer students, including finding roommates, off-campus apartments, and contacting Howard for housing assistance. | https://www.reddit.com/r/HowardUniversity/comments/1v0qd0w/transfer_student_looking_for_housing/ |
+| 3 | Thoughts on Carver/Slowe Apartments | Shares student and parent experiences with Carver/Slowe Apartments regarding affordability, safety, amenities, management, and proximity to Howard. | https://www.reddit.com/r/HowardUniversity/comments/1tnu0sj/thoughts_on_carverslowe_apartments/ |
+| 4 | Help Picking Dorm | Provides student opinions on Howard dorms, including bathrooms, maintenance, residence hall preferences, and dorm essentials. | https://www.reddit.com/r/HowardUniversity/comments/1cr0kyd/help_picking_dorm |
+| 5 | Resident Hall Recommendations | Offers recommendations for Howard residence halls based on safety, social life, bathrooms, location, kitchens, and overall student experience. | https://www.reddit.com/r/HowardUniversity/comments/1snfwjv/resident_hall_recommendations/ |
+| 6 | Apply for Housing | Explains Howard University's housing application process, including StarRez, fees, eligibility, assignments, waitlists, deposits, and exemptions. | https://studentaffairs.howard.edu/housing/apply-housing |
+| 7 | 6 Tips for Finding Off-Campus Housing | Provides tips for finding off-campus housing, including choosing roommates, budgeting, location, amenities, and avoiding rental scams. | https://studentaffairs.howard.edu/articles/6-tips-finding-campus-housing |
+| 8 | Off-Campus Housing & Community Engagement | Explains the resources Howard provides to help students find off-campus housing, understand leases, move in, and engage with their communities. | https://studentaffairs.howard.edu/about/departments/office-off-campus-housing-community-engagement |
+| 9 | Housing | Provides an overview of Howard's on-campus and off-campus housing options, residence halls, move-in resources, and other housing services. | https://studentaffairs.howard.edu/housing |
+| 10 | Find Off-Campus Housing | Explains Howard's off-campus housing options and the difference between independent off-campus properties and university-sponsored housing. | https://studentaffairs.howard.edu/housing/find-off-campus-housing |                                                                                                                       
+
 
 ---
 
@@ -46,13 +49,13 @@
      - Any preprocessing you did before chunking (e.g., stripping HTML, removing headers)
      - What your final chunk count was across all documents -->
 
-**Chunk size:**
+**Chunk size:** 500 characters
 
-**Overlap:**
+**Overlap:** 100 characters
 
-**Why these choices fit your documents:**
+**Why these choices fit your documents:** I used a chunk size of 500 characters because my housing documents consist mainly of short informational pages and student discussions. This size keeps related information together while still making the chunks small enough for relevant information to be retrieved. I used a 100-character overlap so that important context is not lost when information is split between two chunks.
 
-**Final chunk count:**
+**Final chunk count:** 87 chunks across 10 documents.
 
 ---
 
@@ -72,6 +75,14 @@
 
 ---
 
+| # | Source document | Chunk text |
+|---|-----------------|------------|
+| 1 | 6 Tips for Finding Off-Campus Housing.txt | Title: 6 Tips for Finding Off-Campus Housing. Source: https://studentaffairs.howard.edu/articles/6-tips-finding-campus-housing. Selecting the perfect off-campus apartment is a huge responsibility, one that should not be taken lightly. Before embarking on your search, we want to ensure that you have the steps, tips, and tools you need to help you find your next apartment home. Read our six tips below and please contact the Office of Off-Campus Housing at offcampushousing@howard.edu if you have any |
+| 2 | 6 Tips for Finding Off-Campus Housing.txt | w and please contact the Office of Off-Campus Housing at offcampushousing@howard.edu if you have any questions as you embark on your search. 1. Select Your Roommate or Ride Solo. Before selecting an off-campus apartment, you need to decide whether you want to live by yourself or with others. If you decide to live with others, please ensure that all individuals involved are on the same page regarding living preferences. Are you early birds? Night owls? How often do you like to entertain gues |
+| 3 | 6 Tips for Finding Off-Campus Housing.txt | garding living preferences. Are you early birds? Night owls? How often do you like to entertain guests? Remember, don't be afraid to ask questions! This will be a home that you all will share for the duration of the lease. If you need additional help, please view this list of questions to ask potential roommates. You can even listen to past episodes of our Dear Roommate Podcast to hear a number of topics our Bison have addressed regarding living with roommates. 2. Determine Your Budget Aft |
+| 4 | 6 Tips for Finding Off-Campus Housing.txt | of topics our Bison have addressed regarding living with roommates. 2. Determine Your Budget. After determining who (if anyone) you will live with, you need to determine your budget. Understanding what you can afford to pay requires an honest look at your spending and, if necessary, a willingness to cut back to afford housing costs. Additionally, if your parents are paying for the cost of the apartment, they need to be a part of the process from start to finish. It is recommended that you sp |
+| 5 | 6 Tips for Finding Off-Campus Housing.txt | partment, they need to be a part of the process from start to finish. It is recommended that you spend no more that 30 to 40 percent of your monthly income on rent. Please keep this and the following costs in mind when as your finalize your budget: Security Deposits: Many apartments charge a security deposit to cover the costs of potential damage. They could cost up to a month's rent, so be sure that you have considered this. Utilities and Amenities: Did you know that some apartments charge e |
+
 ## Embedding Model
 
 <!-- Name the embedding model you used and explain your choice.
@@ -80,9 +91,9 @@
      Consider: context length limits, multilingual support, accuracy on domain-specific text,
      latency, and local vs. API-hosted. -->
 
-**Model used:**
+**Model used:** all-MiniLM-L6-v2 via sentence-transformers
 
-**Production tradeoff reflection:**
+**Production tradeoff reflection:** I used all-MiniLM-L6-v2 because it is lightweight, fast, and can run locally without requiring a separate embedding API key. It was a good fit for this project because my dataset is relatively small and mostly contains English housing information and student discussions. If I were deploying this system for real users and cost was not a constraint, I would compare other embedding models based on retrieval accuracy, context length, multilingual support, latency, and whether the model runs locally or through an API. A larger or more advanced model might understand more complex or domain-specific housing questions better, but it could also be slower and require more computing resources. I would also consider a multilingual model if the system needed to support students asking questions in languages other than English.
 
 ---
 
@@ -92,37 +103,45 @@
      For at least 2 of the 3, explain why the returned chunks are relevant to the query.
      Results must be text — not screenshots. -->
 
-**Query 1:**
-
-Top returned chunks:
--
--
--
 
 Relevance explanation:
+**Query 1:** What should students consider when looking for off-campus housing?
+
+Top returned chunks:
+- **Result 1 — Source: 6 Tips for Finding Off-Campus Housing.txt, Chunk 0:** Selecting the perfect off-campus apartment is a huge responsibility, one that should not be taken lightly. Before embarking on your search, students should have the steps, tips, and tools needed to find their next apartment home.
+- **Result 2 — Source: 6 Tips for Finding Off-Campus Housing.txt, Chunk 1:** Before selecting an off-campus apartment, students need to decide whether they want to live by themselves or with others. If living with others, everyone should be on the same page regarding living preferences.
+- **Result 3 — Source: Housing.txt, Chunk 2:** Living off campus is an opportunity for students to prepare for life after college, exercise independence in their own living space, and still receive support from the university.
+- **Result 4 — Source: Find Off-Campus Housing.txt, Chunk 2:** This chunk discusses off-campus housing options, being a respectful member of the surrounding community, and the University housing waitlist.
+
+Relevance explanation:
+The retrieval results were relevant to the question because they provided information students should consider when looking for off-campus housing. The strongest results were the first two chunks because they directly discussed preparing for an apartment search, deciding whether to live alone or with roommates, and considering living preferences. Results 3 and 4 were also related to off-campus housing, although they provided more general information and were less directly focused on factors students should consider during their housing search.
 
 ---
 
-**Query 2:**
+**Query 2: What should students know about applying for Howard University housing?
 
 Top returned chunks:
--
--
--
+
+- **Result 1 — Source: Apply for Housing.txt, Chunk 0:** Explains that students use StarRez to submit and manage their housing application and that a $50 nonrefundable application fee must be paid before accessing the application.
+- **Result 2 — Source: Apply for Housing.txt, Chunk 10:** Explains additional housing requirements, including paying the $300 non-refundable enrollment fee and completing all required steps.
+- **Result 3 — Source: Housing.txt, Chunk 0:** Provides general Howard University housing information and resources for students.
+- **Result 4 — Source: Find Off-Campus Housing.txt, Chunk 1:** Explains that independent off-campus properties are managed separately, while university-sponsored housing follows Howard's housing assignment process.
 
 Relevance explanation:
+The retrieval results were relevant because the highest-ranked chunks came directly from Howard University's housing application information. The first two results specifically explain important application requirements, including using StarRez, paying the $50 application fee, and completing required enrollment steps. The fourth result is less directly related to the application process, but it still provides useful context about Howard's housing options.
 
 ---
 
-**Query 3:**
+**Query 3: What is the difference between independent off-campus housing and university-sponsored housing?
 
 Top returned chunks:
--
--
--
+- **Result 1 — Source: Housing.txt, Chunk 2:** Discusses off-campus housing as an opportunity for students to exercise independence while still receiving support from the university.
+- **Result 2 — Source: Find Off-Campus Housing.txt, Chunk 1:** Explains that independent off-campus properties are owned and managed separately, and students lease directly from the property owner or manager. University-sponsored housing follows Howard's housing assignment process.
+- **Result 3 — Source: Find Off-Campus Housing.txt, Chunk 0:** Introduces the two housing paths and explains that properties listed through Howard's off-campus housing portal are independently owned and managed.
+- **Result 4 — Source: 6 Tips for Finding Off-Campus Housing.txt, Chunk 1:** Provides general advice about selecting off-campus housing, including deciding whether to live alone or with roommates and considering living preferences.
 
 Relevance explanation:
-
+The retrieval results were relevant because Results 2 and 3 directly explain the difference between independent off-campus housing and university-sponsored housing. They show that independent housing involves leasing directly from a property owner or manager, while university-sponsored housing follows Howard's housing assignment process. Results 1 and 4 provide related information about off-campus living, but they are less directly focused on the difference between the two housing options.
 ---
 
 ## Grounded Generation
