@@ -256,13 +256,15 @@ Find Off-Campus Housing.txt
      Be honest — a partially accurate or inaccurate result that you explain well is more
      valuable than a suspiciously perfect result. -->
 
+## Evaluation Report
+
 | # | Question | Expected answer | System response (summarized) | Retrieval quality | Response accuracy |
 |---|----------|-----------------|------------------------------|-------------------|-------------------|
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
-| 4 | | | | | |
-| 5 | | | | | |
+| 1 | What should students consider when looking for off-campus housing? | Students should consider factors such as roommates, living preferences, budget, and responsibilities related to living off campus. | The system explained living arrangements, roommate compatibility, community respect, and provided the Office of Off-Campus Housing contact information. | Relevant | Accurate |
+| 2 | What should students know about applying for Howard University housing? | Students should know how to access the housing application, required fees, and important application requirements. | The system explained that students use StarRez, must pay a $50 application fee, that the fee does not guarantee housing, and that required steps and deadlines must be completed. | Relevant | Accurate |
+| 3 | What is the difference between independent off-campus housing and university-sponsored housing? | Independent off-campus housing is independently owned and managed, while university-sponsored housing follows Howard's housing assignment process. | The system correctly explained that independent properties are separately owned and managed while university-sponsored housing follows Howard's housing assignment process. | Relevant | Accurate |
+| 4 | What should students consider when choosing a roommate? | Students should consider compatibility in living preferences, schedules, guests, budget, and other shared expectations. | The system discussed sleep schedules, entertaining habits, and budget considerations when choosing a roommate. | Relevant | Accurate |
+| 5 | What is the best restaurant near Howard University? | The system should refuse to answer because restaurant recommendations are outside the scope of the housing documents. | The system stated that it did not have enough information in the provided housing documents to answer the question. | Off-target | Accurate |
 
 **Retrieval quality:** Relevant / Partially relevant / Off-target  
 **Response accuracy:** Accurate / Partially accurate / Inaccurate
@@ -271,57 +273,40 @@ Find Off-Campus Housing.txt
 
 ## Failure Case Analysis
 
-<!-- Identify at least one question where retrieval or generation did not work as expected.
-     Write a specific explanation of *why* it failed, tied to a part of the pipeline.
+**Question that failed:**  
+What is the difference between independent off-campus housing and university-sponsored housing?
 
-     "The answer was wrong" is not an explanation.
+**What the system returned:**  
+The final generated answer was accurate, but the retrieval ranking was not ideal. The first retrieved result was Housing.txt, Chunk 2, which discussed off-campus living and independence but did not directly explain the difference between independent off-campus housing and university-sponsored housing. The more directly relevant information from Find Off-Campus Housing.txt appeared as Results 2 and 3.
 
-     "The relevant information was split across a chunk boundary, so retrieval returned
-     only half the context — the model didn't have enough to answer correctly" is an explanation.
+**Root cause (tied to a specific pipeline stage):**  
+The weakness occurred during the retrieval stage. The all-MiniLM-L6-v2 embedding model matched the concepts of "off-campus housing" and "independence" in Housing.txt with the question, causing a more general chunk to rank above chunks that directly explained the two housing categories. This shows that semantic similarity does not always rank the most precise chunk first.
 
-     "The embedding model treated the professor's nickname as out-of-vocabulary and returned
-     results from an unrelated review" is an explanation. -->
-
-**Question that failed:**
-
-**What the system returned:**
-
-**Root cause (tied to a specific pipeline stage):**
-
-**What you would change to fix it:**
+**What you would change to fix it:**  
+I would experiment with a stronger embedding model, different chunk sizes, or retrieving more candidate chunks and reranking them before sending them to the language model. A reranking step could help prioritize chunks that directly address both independent off-campus housing and university-sponsored housing.
 
 ---
 
 ## Spec Reflection
 
-<!-- Reflect on how planning.md shaped your implementation.
-     Answer both questions with at least 2–3 sentences each. -->
+**One way the spec helped you during implementation:**  
+The planning specification gave me a clear structure for building the RAG system one stage at a time. It helped me organize the project into document collection, chunking, embeddings, retrieval, grounded generation, and evaluation instead of trying to build the entire system at once. The planned evaluation questions also gave me a consistent way to test whether the completed system was working as expected.
 
-**One way the spec helped you during implementation:**
-
-**One way your implementation diverged from the spec, and why:**
+**One way your implementation diverged from the spec, and why:**  
+My implementation changed slightly during the generation stage because the Groq models I originally attempted to use were not available to my API key. I checked which model was available through my Groq account and changed the generation model to `groq/compound`. This allowed me to continue using Groq while keeping the retrieval and grounding structure of my original plan.
 
 ---
 
 ## AI Usage
 
-<!-- Describe at least 2 specific instances where you used an AI tool during this project.
-     For each: what did you give the AI as input, what did it produce, and what did you
-     change, override, or direct differently?
-
-     "I used Claude to help me code" is not sufficient.
-     "I gave Claude my Chunking Strategy section from planning.md and asked it to implement
-     chunk_text(). It returned a function using a fixed character split. I overrode the
-     chunk size from 500 to 200 because my documents are short reviews, not long guides." -->
-
 **Instance 1**
 
-- *What I gave the AI:*
-- *What it produced:*
-- *What I changed or overrode:*
+- **What I gave the AI:** I provided ChatGPT with my project requirements, my planned 500-character chunk size with 100-character overlap, and outputs from my ingestion and retrieval code. I asked for help implementing and troubleshooting the RAG pipeline.
+- **What it produced:** ChatGPT provided code suggestions for connecting my document chunks, SentenceTransformer embeddings, ChromaDB retrieval, and Groq generation. It also helped explain errors that occurred while connecting the retrieval output to the generation code.
+- **What I changed or overrode:** I tested the suggested code against my actual project and provided the real error messages when the suggested implementation did not match the structure of my ChromaDB retrieval results. The generation code was then adjusted to use the actual `documents` and `metadatas` returned by my retrieval function instead of changing my working retrieval implementation.
 
 **Instance 2**
 
-- *What I gave the AI:*
-- *What it produced:*
-- *What I changed or overrode:*
+- **What I gave the AI:** I provided ChatGPT with the Groq API errors showing that the initially selected models were unavailable to my account, followed by the output showing the model available to my API key.
+- **What it produced:** ChatGPT helped me troubleshoot the model-access problem and showed me how to check the models available through my Groq account. It then helped update the generation code to use the available `groq/compound` model and helped connect the working generation function to a Gradio interface.
+- **What I changed or overrode:** Instead of continuing to try models that my account could not access, I tested the available models with my own API key and used the model returned by Groq. I also tested the completed system with housing questions and an out-of-scope restaurant question to verify that the answers remained grounded in my housing documents.
