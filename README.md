@@ -310,3 +310,7 @@ My implementation changed slightly during the generation stage because the Groq 
 - **What I gave the AI:** I provided ChatGPT with the Groq API errors showing that the initially selected models were unavailable to my account, followed by the output showing the model available to my API key.
 - **What it produced:** ChatGPT helped me troubleshoot the model-access problem and showed me how to check the models available through my Groq account. It then helped update the generation code to use the available `groq/compound` model and helped connect the working generation function to a Gradio interface.
 - **What I changed or overrode:** Instead of continuing to try models that my account could not access, I tested the available models with my own API key and used the model returned by Groq. I also tested the completed system with housing questions and an out-of-scope restaurant question to verify that the answers remained grounded in my housing documents.
+
+# Demo Video
+
+Link: https://drive.google.com/file/d/1CzNVz8flmsJeK6JtgRPGP8zjhBGCUj8-/view?usp=sharing
